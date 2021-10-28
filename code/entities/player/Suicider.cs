@@ -12,6 +12,7 @@ namespace SuicideSurvival.entities.player
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
+			RenderColor = Color.Green;
 
 			//
 			// Use WalkController for movement (you can make your own PlayerController for 100% control)

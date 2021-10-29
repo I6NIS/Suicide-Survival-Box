@@ -22,7 +22,7 @@
 		}
 		Sounds = 
 		{
-			Bullet = "impact-bullet-flesh"
+			Bullet = "SoundEvents.ShrubImpact"
 			ImpactHard = "impact-bullet-flesh"
 		}
 		BounceThreshold = 100.0

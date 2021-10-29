@@ -34,14 +34,14 @@
 						collision_prop = "default"
 						radius = 24.777678
 						point0 = [ 0.0, 0.0, 32.854301 ]
-						point1 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.0, 0.0, -0.095161 ]
 					},
 					{
 						_class = "PhysicsShapeSphere"
 						parent_bone = ""
 						surface_prop = "shrub"
 						collision_prop = "default"
-						radius = 24.223915
+						radius = 24.820526
 						center = [ 0.0, 0.0, 30.5 ]
 					},
 				]

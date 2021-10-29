@@ -1,0 +1,30 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Base = "default"
+		Friction = 0.05
+		Elasticity = 0.2
+		Density = 50.0
+		Thickness = 0.3
+		Dampening = 10.0
+		ImpactEffects = 
+		{
+			Regular = [  ]
+			Bullet = 
+			[
+				resource:"particles/impact.generic.vpcf",
+			]
+			BulletDecal = 
+			[
+				"decals/bullet-wood.decal",
+			]
+		}
+		Sounds = 
+		{
+			Bullet = "impact-bullet-flesh"
+			ImpactHard = "impact-bullet-flesh"
+		}
+		BounceThreshold = 100.0
+	}
+}

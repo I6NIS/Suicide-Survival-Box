@@ -78,8 +78,8 @@ namespace SuicideSurvival.entities.player
 
 			if ( IsServer && Input.Pressed( InputButton.Attack2 ) )
 			{
-				var sound = "yalala";
-				Sound.FromWorld( sound, Position ).SetVolume( 1.0f).SetPitch( Rand.Float( 0.8f, 1.2f ) );
+				Log.Info( "YALALALALALALALALLALA" );
+				Sound.FromWorld( "SuicideSurvival.sounds.SoundEvents.Yalala", Position ).SetVolume( 1.0f ).SetPitch( Rand.Float( 0.8f, 1.2f ) );
 			}
 		}
 

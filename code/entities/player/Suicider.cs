@@ -75,6 +75,12 @@ namespace SuicideSurvival.entities.player
 			{
 				DoExplosion();
 			}
+
+			if ( IsServer && Input.Pressed( InputButton.Attack2 ) )
+			{
+				var sound = "yalala";
+				Sound.FromWorld( sound, Position ).SetVolume( 1.0f).SetPitch( Rand.Float( 0.8f, 1.2f ) );
+			}
 		}
 
 		public override void OnKilled()

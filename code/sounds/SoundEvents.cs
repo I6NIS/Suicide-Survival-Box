@@ -11,5 +11,6 @@ namespace SuicideSurvival.sounds
 	{
 		public static SoundEvent ShrubImpact = new SoundEvent( "sound/weapons/bolt_smack1.vsnd_c" );
 		public static SoundEvent ShrubExplosion = new SoundEvent( "sound/explosion1.vsnd" );
+		public static SoundEvent Yalala = new SoundEvent( "sound/taunts_suicider/yalala.vsnd_c" );
 	}
 }

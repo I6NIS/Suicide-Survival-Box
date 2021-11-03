@@ -1,9 +1,13 @@
 ﻿
+using Gamelib.Extensions;
 using Sandbox;
 using Sandbox.UI.Construct;
+using SuicideSurvival.entities.map;
 using SuicideSurvival.entities.player;
+using SuicideSurvival.systems;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Player = SuicideSurvival.entities.player.Player;
 
@@ -54,6 +58,31 @@ namespace SuicideSurvival
 			client.Pawn = player;
 			
 			player.Respawn();
+		}
+
+		public override void MoveToSpawnpoint( Entity pawn )
+		{
+			if ( pawn is Player player )
+			{
+				var team = player.Team;
+
+				if ( team == Team.None )
+					team = Team.Survivor;
+
+				var spawnpoints = All.OfType<PlayerSpawnpoint>()
+					.Where( e => e.Team == team )
+					.ToList()
+					.Shuffle();
+
+				if ( spawnpoints.Count > 0 )
+				{
+					var spawnpoint = spawnpoints[0];
+					player.Transform = spawnpoint.Transform;
+					return;
+				}
+			}
+
+			base.MoveToSpawnpoint( pawn );
 		}
 	}
 

@@ -22,7 +22,7 @@
 ]
 
 //
-// SuicideSurvival.PlayerSpawnpoint
+// SuicideSurvival.entities.map.PlayerSpawnpoint
 //
 @PointClass base(BaseProperties_Suicide_Survival_Box) editormodel( "models/editor/playerstart.vmdl", fixedbounds ) 
 metadata

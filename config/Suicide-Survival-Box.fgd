@@ -31,7 +31,7 @@ metadata
 	entity_tool_group = "Suicide Survival"
 	entity_tool_tip = "Defines a point where players on a team can spawn"
 }
-= hv_spawnpoint : ""
+= ss_spawnpoint : ""
 [
 	team(choices) : "Team" : 0 : "" =
 	[

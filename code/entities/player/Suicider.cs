@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuicideSurvival.sounds;
+using SuicideSurvival.systems;
 
 namespace SuicideSurvival.entities.player
 {
@@ -21,6 +22,11 @@ namespace SuicideSurvival.entities.player
 		private string explosion_buildup = "";
 		private string explosion_custom_sound = "rust_pumpshotgun.shootdouble";
 		private string explosion_custom_effect = null;
+
+		public Suicider()
+		{
+			Team = Team.Suicider;
+		}
 
 		public override void Respawn()
 		{

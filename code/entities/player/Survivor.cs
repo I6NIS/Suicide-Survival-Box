@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuicideSurvival.systems;
 
 namespace SuicideSurvival.entities.player
 {
 	public class Survivor : Player
 	{
+		public Survivor()
+		{
+			Team = Team.Survivor;
+		}
+		
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );

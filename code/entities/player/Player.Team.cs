@@ -5,7 +5,7 @@ namespace SuicideSurvival.entities.player
 {
 	public partial class Player
 	{
-		[Net, Change] public Team Team { get; private set; }
+		[Net, Change] public Team Team { get; protected set; }
 
 		public void SetTeam( Team team )
 		{

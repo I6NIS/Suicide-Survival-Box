@@ -5,7 +5,7 @@ namespace SuicideSurvival.entities.player
 {
 	public partial class Player : Sandbox.Player
 	{
-		public int Kills { get; private set; }
+		public int Kills { get; protected set; }
 
 		public override void OnKilled()
 		{

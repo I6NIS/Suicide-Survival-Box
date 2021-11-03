@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuicideSurvival.entities.player
 {
-	partial class Survivor : Sandbox.Player
+	public class Survivor : Player
 	{
 		public override void Respawn()
 		{
@@ -55,7 +55,7 @@ namespace SuicideSurvival.entities.player
 			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
 			{
 				var ragdoll = new ModelEntity();
-				ragdoll.SetModel( "models/orange.vmdl" );
+				ragdoll.SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
 				ragdoll.Position = EyePos + EyeRot.Forward * 40;
 				ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
 				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );

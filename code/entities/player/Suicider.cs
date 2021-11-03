@@ -4,15 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuicideSurvival.sounds;
 
 namespace SuicideSurvival.entities.player
 {
-	class Suicider : Sandbox.Player
+	class Suicider : Player
 	{
+		[ServerVar]
+		public static bool debug_prop_explosion { get; set; } = false;
+		
+		private string explosion_type = "explosivebarrel";
+		private float explosive_damage = 200.0f;
+		private float explosive_radius = 250.0f;
+		private float explosive_force = 5.0f;
+		private float explosion_delay = -1.0f;
+		private string explosion_buildup = "";
+		private string explosion_custom_sound = "rust_pumpshotgun.shootdouble";
+		private string explosion_custom_effect = null;
+
 		public override void Respawn()
 		{
-			SetModel( "models/citizen/citizen.vmdl" );
-			RenderColor = Color.Green;
+			SetModel( "models/props/shrub.vmdl" );
 
 			//
 			// Use WalkController for movement (you can make your own PlayerController for 100% control)
@@ -55,12 +67,7 @@ namespace SuicideSurvival.entities.player
 			//
 			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
 			{
-				var ragdoll = new ModelEntity();
-				ragdoll.SetModel( "models/orange.vmdl" );
-				ragdoll.Position = EyePos + EyeRot.Forward * 40;
-				ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-				ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+				DoExplosion();
 			}
 		}
 
@@ -69,6 +76,91 @@ namespace SuicideSurvival.entities.player
 			base.OnKilled();
 
 			EnableDrawing = false;
+		}
+		
+		// Blatantly copied from Sandbox.Prop
+		private void DoExplosion()
+		{
+			var model = GetModel();
+			if ( model == null || model.IsError )
+				return;
+
+			if ( !PhysicsBody.IsValid() )
+				return;
+
+			if ( !string.IsNullOrWhiteSpace( explosion_custom_sound ) )
+			{
+				Sound.FromWorld( explosion_custom_sound, PhysicsBody.MassCenter );
+			}
+			else
+			{
+				// TODO: Replace with something else
+				Sound.FromWorld( "SuicideSurvival.sounds.SoundEvents.ShrubExplosion", PhysicsBody.MassCenter );
+			}
+
+			if ( !string.IsNullOrWhiteSpace( explosion_custom_effect ) )
+			{
+				Particles.Create( explosion_custom_effect, PhysicsBody.MassCenter );
+			}
+			else
+			{
+				Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", PhysicsBody.MassCenter );
+			}
+
+			// Damage and push away all other entities
+			if ( explosive_radius > 0.0f )
+			{
+				var sourcePos = PhysicsBody.MassCenter;
+				var overlaps = Physics.GetEntitiesInSphere( sourcePos, explosive_radius );
+
+				if ( debug_prop_explosion )
+					DebugOverlay.Sphere( sourcePos, explosive_radius, Color.Orange, true, 5 );
+
+				foreach ( var overlap in overlaps )
+				{
+					if ( overlap is not ModelEntity ent || !ent.IsValid() )
+						continue;
+
+					if ( ent.LifeState != LifeState.Alive )
+						continue;
+
+					if ( !ent.PhysicsBody.IsValid() )
+						continue;
+
+					if ( ent.IsWorld )
+						continue;
+
+					var targetPos = ent.PhysicsBody.MassCenter;
+
+					var dist = Vector3.DistanceBetween( sourcePos, targetPos );
+					if ( dist > explosive_radius )
+						continue;
+
+					var tr = Trace.Ray( sourcePos, targetPos )
+						.Ignore( this )
+						.WorldOnly()
+						.Run();
+
+					if ( tr.Fraction < 0.95f )
+					{
+						if ( debug_prop_explosion )
+							DebugOverlay.Line( sourcePos, tr.EndPos, Color.Red, 5, true );
+
+						continue;
+					}
+
+					if ( debug_prop_explosion )
+						DebugOverlay.Line( sourcePos, targetPos, 5, true );
+
+					var distanceMul = 1.0f - Math.Clamp( dist / explosive_radius, 0.0f, 1.0f );
+					var damage = explosive_damage * distanceMul;
+					var force = (explosive_force * distanceMul) * ent.PhysicsBody.Mass;
+					var forceDir = (targetPos - sourcePos).Normal;
+
+					ent.TakeDamage( DamageInfo.Explosion( sourcePos, forceDir * force, damage )
+						.WithAttacker( this ) );
+				}
+			}
 		}
 	}
 }

@@ -1,9 +1,11 @@
 ﻿using Sandbox;
+using SuicideSurvival.entities.player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Player = SuicideSurvival.entities.player.Player;
 
 namespace SuicideSurvival.systems
 {
@@ -39,12 +41,12 @@ namespace SuicideSurvival.systems
 
 		public static IEnumerable<Player> GetAll(this Team team )
 		{
-			return Entity.All.OfType<Player>().Where( e => e.team == team );
+			return Entity.All.OfType<Player>().Where( e => e.Team == team );
 		}
 
 		public static int GetCount(this Team team )
 		{
-			return Entity.All.OfType<Player>().Where( e => e.team == team ).Count();
+			return Entity.All.OfType<Player>().Where( e => e.Team == team ).Count();
 		}
 	}
 }

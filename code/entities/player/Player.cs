@@ -1,16 +1,23 @@
 ﻿using Sandbox;
-using SuicideSurvival.systems;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuicideSurvival.entities.player
 {
-	public partial class Player : Player
+	public partial class Player : Sandbox.Player
 	{
-		public int kills { get; private set; }
-		public Team team { get; private set; }
+		public int Kills { get; private set; }
+
+		public override void OnKilled()
+		{
+			// Also debug code, randomizes player "team"
+			Client client = this.Client;
+			
+			Player player = new Random().Next( 2 ) > 0 ? new Suicider() : new Survivor();
+			client.Pawn = player;
+			
+			base.OnKilled();
+			player.Respawn();
+			Delete();
+		}
 	}
 }

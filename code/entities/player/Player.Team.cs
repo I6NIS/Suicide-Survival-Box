@@ -1,10 +1,5 @@
 ﻿using Sandbox;
 using SuicideSurvival.systems;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuicideSurvival.entities.player
 {
@@ -12,10 +7,15 @@ namespace SuicideSurvival.entities.player
 	{
 		[Net, Change] public Team Team { get; private set; }
 
-		public void SetTeam(Team team )
+		public void SetTeam( Team team )
 		{
 			Team = team;
 			Client.SetInt( "team", (int)team );
+		}
+		
+		protected virtual void OnTeamChanged( Team oldTeam, Team newTeam )
+		{
+			// noop
 		}
 	}
 }

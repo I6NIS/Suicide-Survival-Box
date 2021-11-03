@@ -5,6 +5,7 @@ using SuicideSurvival.entities.player;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Player = SuicideSurvival.entities.player.Player;
 
 //
 // You don't need to put things in a namespace, but it doesn't hurt.
@@ -48,9 +49,10 @@ namespace SuicideSurvival
 		{
 			base.ClientJoined( client );
 
-			var player = new Survivor();
+			// Debug code, makes you a random "team" at join
+			Player player = new Random().Next( 2 ) > 0 ? new Suicider() : new Survivor();
 			client.Pawn = player;
-
+			
 			player.Respawn();
 		}
 	}

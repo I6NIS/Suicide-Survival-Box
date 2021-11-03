@@ -66,8 +66,8 @@ namespace SuicideSurvival
 			{
 				var team = player.Team;
 
-				//if ( team == Team.None )
-				//	team = Team.Survivor;
+				if ( team == Team.None )
+					team = Team.Survivor;
 
 				var spawnpoints = All.OfType<PlayerSpawnpoint>()
 					.Where( e => e.Team == team )

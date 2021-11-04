@@ -31,6 +31,7 @@ namespace SuicideSurvival.entities.player
 		public override void Respawn()
 		{
 			SetModel( "models/props/shrub.vmdl" );
+			PlaySound( "spawn" );
 
 			//
 			// Use WalkController for movement (you can make your own PlayerController for 100% control)
@@ -78,7 +79,11 @@ namespace SuicideSurvival.entities.player
 
 			if ( Input.Pressed( InputButton.Attack2 ) )
 			{
-				Log.Info( "YALALALALALALALALLALA" );
+				PlaySound( "shrubtaunt" );
+			}
+
+			if ( Input.Pressed( InputButton.Run ) )
+			{
 				PlaySound( "yalala" );
 			}
 		}
@@ -86,6 +91,7 @@ namespace SuicideSurvival.entities.player
 		public override void OnKilled()
 		{
 			base.OnKilled();
+			PlaySound( "shrubhit" );
 
 			EnableDrawing = false;
 		}

@@ -2,15 +2,16 @@
 {
 	data = 
 	{
+		sounds = 
+		[
+			"sound/taunts_survivor/shrub.vsnd",
+			"sound/taunts_survivor/shrub2.vsnd",
+		]
 		UI = false
-		Volume = 0.2
+		Volume = 0.15
 		VolumeRandom = 0.0
 		Pitch = 1.0
-		PitchRandom = 0.2
+		PitchRandom = 0.1
 		DistanceMax = 1000.0
-		Sounds = 
-		[
-			"sound/boing.vsnd",
-		]
 	}
 }

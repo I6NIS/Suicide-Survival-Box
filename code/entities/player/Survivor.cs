@@ -58,15 +58,24 @@ namespace SuicideSurvival.entities.player
 			//
 			// If we're running serverside and Attack1 was just pressed, spawn a ragdoll
 			//
-			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
+			if ( Input.Pressed( InputButton.Attack1 ) )
 			{
 				PlaySound( "boing" );
-				var ragdoll = new ModelEntity();
-				ragdoll.SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
-				ragdoll.Position = EyePos + EyeRot.Forward * 40;
-				ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-				ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+			}
+
+			if ( Input.Pressed( InputButton.Attack2 ) )
+			{
+				PlaySound( "survivortaunt" );
+			}
+			
+			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
+			{
+				var projectile = new ModelEntity();
+				projectile.SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
+				projectile.Position = EyePos + EyeRot.Forward * 40;
+				projectile.Rotation = Rotation.LookAt( Vector3.Random.Normal );
+				projectile.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
+				projectile.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
 			}
 		}
 
@@ -79,6 +88,7 @@ namespace SuicideSurvival.entities.player
 
 		public override void OnKilled()
 		{
+			PlaySound( "surprised" );
 			base.OnKilled();
 
 			EnableDrawing = false;

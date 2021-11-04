@@ -2,17 +2,15 @@
 {
 	data = 
 	{
-		sounds = 
-		[
-			"sound/footsteps_shrub/close3.vsnd",
-			"sound/footsteps_shrub/kopie von close1.vsnd",
-			"sound/footsteps_shrub/kopie von close2.vsnd",
-		]
 		UI = false
 		Volume = 1.0
 		VolumeRandom = 0.0
 		Pitch = 1.0
 		PitchRandom = 0.0
 		DistanceMax = 1000.0
+		Sounds = 
+		[
+			"sound/taunts_suicider/yalala.vsnd",
+		]
 	}
 }

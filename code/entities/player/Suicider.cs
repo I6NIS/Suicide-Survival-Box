@@ -79,7 +79,7 @@ namespace SuicideSurvival.entities.player
 			if ( Input.Pressed( InputButton.Attack2 ) )
 			{
 				Log.Info( "YALALALALALALALALLALA" );
-				PlaySound( "SuicideSurvival.sounds.SoundEvents.Yalala" ).SetVolume( 1.0f ).SetPitch( Rand.Float( 0.8f, 1.2f ) );
+				PlaySound( "SuicideSurvival.sounds.SoundEvents.Yalala" );
 			}
 		}
 

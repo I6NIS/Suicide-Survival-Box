@@ -60,6 +60,7 @@ namespace SuicideSurvival.entities.player
 			//
 			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
 			{
+				PlaySound( "boing" );
 				var ragdoll = new ModelEntity();
 				ragdoll.SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
 				ragdoll.Position = EyePos + EyeRot.Forward * 40;
@@ -71,7 +72,7 @@ namespace SuicideSurvival.entities.player
 
 		public override void OnAnimEventFootstep( Vector3 pos, int foot, float volume )
 		{
-			PlaySound( "SuicideSurvival.sounds.SoundEvents.SurvivorFootsteps" );
+			PlaySound( "footstep_human" );
 
 			base.OnAnimEventFootstep( pos, foot, volume );
 		}

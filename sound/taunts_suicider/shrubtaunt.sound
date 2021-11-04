@@ -10,7 +10,7 @@
 			"sound/taunts_suicider/overthere02.vsnd",
 		]
 		UI = false
-		Volume = 1.0
+		Volume = 0.5
 		VolumeRandom = 0.0
 		Pitch = 1.3
 		PitchRandom = 0.1

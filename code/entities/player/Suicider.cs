@@ -89,7 +89,7 @@ namespace SuicideSurvival.entities.player
 
 			EnableDrawing = false;
 		}
-		
+
 		// Blatantly copied from Sandbox.Prop
 		private void DoExplosion()
 		{

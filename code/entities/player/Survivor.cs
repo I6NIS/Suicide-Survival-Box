@@ -69,6 +69,13 @@ namespace SuicideSurvival.entities.player
 			}
 		}
 
+		public override void OnAnimEventFootstep( Vector3 pos, int foot, float volume )
+		{
+			PlaySound( "SuicideSurvival.sounds.SoundEvents.SurvivorFootsteps" );
+
+			base.OnAnimEventFootstep( pos, foot, volume );
+		}
+
 		public override void OnKilled()
 		{
 			base.OnKilled();

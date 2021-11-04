@@ -71,15 +71,15 @@ namespace SuicideSurvival.entities.player
 			//
 			// If we're running serverside and Attack1 was just pressed, spawn a ragdoll
 			//
-			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
+			if ( Input.Pressed( InputButton.Attack1 ) )
 			{
 				DoExplosion();
 			}
 
-			if ( IsServer && Input.Pressed( InputButton.Attack2 ) )
+			if ( Input.Pressed( InputButton.Attack2 ) )
 			{
 				Log.Info( "YALALALALALALALALLALA" );
-				Sound.FromWorld( "SuicideSurvival.sounds.SoundEvents.Yalala", Position ).SetVolume( 1.0f ).SetPitch( Rand.Float( 0.8f, 1.2f ) );
+				PlaySound( "SuicideSurvival.sounds.SoundEvents.Yalala" ).SetVolume( 1.0f ).SetPitch( Rand.Float( 0.8f, 1.2f ) );
 			}
 		}
 

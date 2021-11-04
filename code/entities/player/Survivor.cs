@@ -71,7 +71,7 @@ namespace SuicideSurvival.entities.player
 			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
 			{
 				var projectile = new ModelEntity();
-				projectile.SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
+				projectile.SetModel( "models/props/book.vmdl" );
 				projectile.Position = EyePos + EyeRot.Forward * 40;
 				projectile.Rotation = Rotation.LookAt( Vector3.Random.Normal );
 				projectile.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );

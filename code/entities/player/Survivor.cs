@@ -7,7 +7,7 @@ namespace SuicideSurvival.entities.player
 	public partial class Survivor : Player
 	{
 		[Net] public int Ammo { get; private set;}
-		[Net] public int MaxAmmo { get; private set; } = 11;
+		[Net] public int MaxAmmo { get; private set; } = 10;
 		
 		private float lastAttack = 0.0f;
 		private float attackDelay = 2.0f;
@@ -80,7 +80,7 @@ namespace SuicideSurvival.entities.player
 				var book = new Book();
 				book.Position = EyePos + EyeRot.Forward * 40;
 				book.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-				book.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+				book.PhysicsGroup.Velocity = EyeRot.Forward * 2000;
 
 				using ( Prediction.Off() )
 				{

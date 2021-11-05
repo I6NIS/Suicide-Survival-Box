@@ -16,7 +16,7 @@ namespace SuicideSurvival.entities
 			this.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
 			this.EnableTouch = true;
 			
-			DeleteAfterDelay( 60000, this );
+			DeleteAfterDelay( 600000, this );
 		}
 		
 		private async Task DeleteAfterDelay( int delay, Entity ent )

@@ -8,7 +8,7 @@
 			"sound/taunts_survivor/shrub2.vsnd",
 		]
 		UI = false
-		Volume = 0.15
+		Volume = 0.05
 		VolumeRandom = 0.0
 		Pitch = 1.0
 		PitchRandom = 0.1

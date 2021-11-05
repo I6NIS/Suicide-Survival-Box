@@ -16,7 +16,7 @@ namespace SuicideSurvival.entities.player
 		
 		private string explosion_type = "explosivebarrel";
 		private float explosive_damage = 200.0f;
-		private float explosive_radius = 250.0f;
+		private float explosive_radius = 500.0f;
 		private float explosive_force = 5.0f;
 		private float explosion_delay = -1.0f;
 		private string explosion_buildup = "";

@@ -1,18 +1,27 @@
 ﻿using Sandbox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SuicideSurvival.systems;
+using SuicideSurvival.ui;
 
 namespace SuicideSurvival.entities.player
 {
-	public class Survivor : Player
+	public partial class Survivor : Player
 	{
+		[Net] public int Ammo { get; private set;}
+		[Net] public int MaxAmmo { get; private set; } = 11;
+		
+		private float lastAttack = 0.0f;
+		private float attackDelay = 2.0f;
+		private SurvivorHud _survivorHud;
+		
+		
 		public Survivor()
 		{
 			Team = Team.Survivor;
+
+			if ( IsServer )
+			{
+				_survivorHud = new SurvivorHud();
+			}
 		}
 		
 		public override void Respawn()
@@ -39,6 +48,8 @@ namespace SuicideSurvival.entities.player
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
 
+			Ammo = MaxAmmo;
+
 			base.Respawn();
 		}
 
@@ -55,14 +66,6 @@ namespace SuicideSurvival.entities.player
 			//
 			SimulateActiveChild( cl, ActiveChild );
 
-			//
-			// If we're running serverside and Attack1 was just pressed, spawn a ragdoll
-			//
-			if ( Input.Pressed( InputButton.Attack1 ) )
-			{
-				PlaySound( "boing" );
-			}
-
 			if ( Input.Pressed( InputButton.Attack2 ) )
 			{
 				PlaySound( "survivortaunt" );
@@ -70,14 +73,26 @@ namespace SuicideSurvival.entities.player
 			
 			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
 			{
-				var projectile = new ModelEntity();
-				projectile.SetModel( "models/props/book.vmdl" );
-				projectile.Position = EyePos + EyeRot.Forward * 40;
-				projectile.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-				projectile.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-				projectile.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+				// If we have no ammo, or our last attack was before the delay, return
+				if (( Ammo < 1 ) || ( Time.Now < (lastAttack + attackDelay))) return;
+				
+				// BOOK LORE
+				var book = new Book();
+				book.Position = EyePos + EyeRot.Forward * 40;
+				book.Rotation = Rotation.LookAt( Vector3.Random.Normal );
+				book.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
+
+				using ( Prediction.Off() )
+				{
+					PlaySound( "boing" );
+				}
+				
+				Ammo -= 1;
+				lastAttack = Time.Now;
 			}
 		}
+
+		
 
 		public override void OnAnimEventFootstep( Vector3 pos, int foot, float volume )
 		{
@@ -90,6 +105,8 @@ namespace SuicideSurvival.entities.player
 		{
 			PlaySound( "surprised" );
 			base.OnKilled();
+			
+			_survivorHud.Delete();
 
 			EnableDrawing = false;
 		}
